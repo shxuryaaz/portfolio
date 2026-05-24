@@ -550,7 +550,27 @@
 	<script>typeof document<"u"&&(window.process={...window.process,env:{...window.process?.env,NODE_ENV:"production"}});</script>
 	<link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/4MeEomnvVlOloqGuvPRgIU/react.ZuBMAs26.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/4MeEomnvVlOloqGuvPRgIU/rolldown-runtime.BvHXOKAc.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/4MeEomnvVlOloqGuvPRgIU/motion.BeT2_Wg9.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/4MeEomnvVlOloqGuvPRgIU/framer.pLd9xqEy.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/4MeEomnvVlOloqGuvPRgIU/shared-lib.Cafkb8QJ.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/4MeEomnvVlOloqGuvPRgIU/gqqEekypi.C_fXRBNf.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/4MeEomnvVlOloqGuvPRgIU/yMuKM2UkU.C00AevEc.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/4MeEomnvVlOloqGuvPRgIU/GZUcTVPMb.Dh9P_jV2.mjs"><script type="module" async data-framer-bundle="main" fetchPriority="low" src="/script_main.mjs"></script>
 	<!-- Start of bodyEnd -->
-    
+
     <!-- End of bodyEnd -->
+<script>
+(function(){
+  var d=false,t1=false,t2=false,t3=false;
+  function run(){
+    var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false),n;
+    while(n=w.nextNode()){
+      var v=n.nodeValue||'',l=v.toLowerCase().trim();
+      if(!d&&l.indexOf('framer template')!==-1){
+        n.nodeValue='A teaching stack for programming courses. Reviews student code and runs a Socratic dialogue — questions and MCQs instead of handing out fixes. A FastAPI ML backend remembers per-student mistake patterns. A VS Code extension surfaces personalized warnings using the same profile.';
+        d=true;
+      } else if(!t1&&l==='web design'){n.nodeValue='TypeScript · Python';t1=true;}
+      else if(!t2&&l==='branding'){n.nodeValue='FastAPI · scikit-learn';t2=true;}
+      else if(!t3&&l==='seo'){n.nodeValue='Socket.IO · VS Code Ext';t3=true;}
+    }
+    return d&&t1&&t2&&t3;
+  }
+  var i=setInterval(function(){if(run())clearInterval(i);},150);
+  setTimeout(function(){clearInterval(i);},15000);
+})();
+</script>
 </body>
 </html>
