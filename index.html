@@ -579,5 +579,24 @@
   setTimeout(function(){ clearInterval(t); }, 20000);
 })();
 </script>
+<script>
+(function(){
+  function injectPhoto() {
+    if (document.getElementById('about-photo')) return;
+    var rightCol = document.querySelector('.framer-11wbxjg[data-framer-name="text - wrapper"]');
+    if (!rightCol) return;
+
+    var wrap = document.createElement('div');
+    wrap.id = 'about-photo';
+    wrap.style.cssText = 'width:100%;padding:0 20px 40px;box-sizing:border-box;';
+    wrap.innerHTML = '<img src="/shaurya.jpeg" alt="Shaurya Singh" style="width:100%;max-width:480px;height:auto;aspect-ratio:3/4;object-fit:cover;object-position:center 20%;border-radius:16px;display:block;">';
+
+    rightCol.insertBefore(wrap, rightCol.firstChild);
+    clearInterval(pt);
+  }
+  var pt = setInterval(injectPhoto, 200);
+  setTimeout(function(){ clearInterval(pt); }, 10000);
+})();
+</script>
 </body>
 </html>
