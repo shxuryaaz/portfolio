@@ -602,5 +602,24 @@ section#about::after {
   section#about::after { display: none; }
 }
 </style>
+<script>
+document.addEventListener('click', function(e) {
+  var a = e.target.closest('a[href]');
+  if (!a) return;
+  var href = a.getAttribute('href') || '';
+  if (/^\/works\//.test(href)) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    var sections = document.querySelectorAll('section');
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].textContent.indexOf('PROJECTS') !== -1) {
+        sections[i].scrollIntoView({behavior: 'smooth', block: 'start'});
+        return;
+      }
+    }
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+}, true);
+</script>
 </body>
 </html>
