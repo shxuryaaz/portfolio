@@ -604,6 +604,21 @@ section#about::after {
 </style>
 
 <script>
+// Persistently replace "CS undergrad" with "18 y/o CS undergrad" after React hydration
+(function(){
+  function fix(){
+    var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false),n;
+    while(n=w.nextNode()){
+      var v=n.nodeValue||'';
+      if(v.indexOf('CS undergrad from New Delhi')!==-1&&v.indexOf('18 y/o')===-1){
+        n.nodeValue=v.replace('CS undergrad from New Delhi','18 y/o CS undergrad from New Delhi');
+      }
+    }
+  }
+  var t=setInterval(fix,150);
+  setTimeout(function(){clearInterval(t);},20000);
+})();
+
 function __scrollToProjects() {
   var sections = document.querySelectorAll('section');
   for (var i = 0; i < sections.length; i++) {
