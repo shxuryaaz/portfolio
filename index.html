@@ -603,21 +603,33 @@ section#about::after {
 }
 </style>
 <script>
+function __scrollToProjects() {
+  var sections = document.querySelectorAll('section');
+  for (var i = 0; i < sections.length; i++) {
+    if (sections[i].textContent.indexOf('PROJECTS') !== -1) {
+      sections[i].scrollIntoView({behavior: 'smooth', block: 'start'});
+      return;
+    }
+  }
+}
+// Intercept React Router's pushState (Framer uses this for SPA navigation)
+var _origPush = history.pushState.bind(history);
+history.pushState = function(state, title, url) {
+  if (url && /\/works\//.test(String(url))) {
+    __scrollToProjects();
+    return;
+  }
+  return _origPush(state, title, url);
+};
+// Also catch direct anchor clicks as fallback
 document.addEventListener('click', function(e) {
   var a = e.target.closest('a[href]');
   if (!a) return;
   var href = a.getAttribute('href') || '';
-  if (/^\/works\//.test(href)) {
+  if (/\/works\//.test(href)) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    var sections = document.querySelectorAll('section');
-    for (var i = 0; i < sections.length; i++) {
-      if (sections[i].textContent.indexOf('PROJECTS') !== -1) {
-        sections[i].scrollIntoView({behavior: 'smooth', block: 'start'});
-        return;
-      }
-    }
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    __scrollToProjects();
   }
 }, true);
 </script>
