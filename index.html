@@ -615,7 +615,7 @@ function __scrollToProjects() {
 // Intercept React Router's pushState (Framer uses this for SPA navigation)
 var _origPush = history.pushState.bind(history);
 history.pushState = function(state, title, url) {
-  if (url && /\/works\//.test(String(url))) {
+  if (url && /\/works(\/|$)/.test(String(url))) {
     __scrollToProjects();
     return;
   }
@@ -626,7 +626,7 @@ document.addEventListener('click', function(e) {
   var a = e.target.closest('a[href]');
   if (!a) return;
   var href = a.getAttribute('href') || '';
-  if (/\/works\//.test(href)) {
+  if (/\/works(\/|$)/.test(href)) {
     e.preventDefault();
     e.stopImmediatePropagation();
     __scrollToProjects();
