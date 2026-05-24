@@ -603,6 +603,26 @@ section#about::after {
 }
 </style>
 <script>
+(function(){
+  var done=false;
+  function run(){
+    if(done)return;
+    var els=document.querySelectorAll('p,h1,h2,h3,h4,h5,span,div');
+    for(var i=0;i<els.length;i++){
+      var el=els[i];
+      if(el.children.length>0)continue;
+      var t=(el.textContent||'').trim();
+      if(t==='CS undergrad from New Delhi.'||t==='CS undergrad from New Delhi'){
+        el.textContent='18 y/o CS undergrad from New Delhi.';
+        done=true;return;
+      }
+    }
+  }
+  var t=setInterval(function(){run();if(done)clearInterval(t);},200);
+  setTimeout(function(){clearInterval(t);},20000);
+})();
+</script>
+<script>
 function __scrollToProjects() {
   var sections = document.querySelectorAll('section');
   for (var i = 0; i < sections.length; i++) {
