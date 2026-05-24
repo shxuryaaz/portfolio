@@ -554,22 +554,42 @@
     <!-- End of bodyEnd -->
 <script>
 (function(){
-  var d=false,t1=false,t2=false,t3=false;
-  function run(){
-    var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false),n;
-    while(n=w.nextNode()){
-      var v=n.nodeValue||'',l=v.toLowerCase().trim();
-      if(!d&&l.indexOf('framer template')!==-1){
-        n.nodeValue='Market Map infers hidden capital regimes by fusing cross-asset microstructure signals with macro factors. A sequence VAE compresses engineered features into a latent manifold, followed by UMAP + KMeans to expose liquidity regimes that drive the Dash analysis surface.';
-        d=true;
-      } else if(!t1&&l==='web design'){n.nodeValue='Python · PyTorch';t1=true;}
-      else if(!t2&&l==='branding'){n.nodeValue='UMAP · KMeans';t2=true;}
-      else if(!t3&&l==='seo'){n.nodeValue='LSTM VAE · Dash';t3=true;}
-    }
-    return d&&t1&&t2&&t3;
+  var DESC='Market Map infers hidden capital regimes by fusing cross-asset microstructure signals with macro factors. A sequence VAE compresses engineered features into a latent manifold, followed by UMAP + KMeans to expose liquidity regimes that drive the Dash analysis surface.';
+  var PATTERNS=['shopify','framer template','elevate your clothing','seamless user experience','fast load times','framercommerce'];
+  var doneDesc=false;
+  function matchDesc(txt){
+    var l=(txt||'').toLowerCase();
+    for(var i=0;i<PATTERNS.length;i++){if(l.indexOf(PATTERNS[i])!==-1)return true;}
+    return false;
   }
-  var i=setInterval(function(){if(run())clearInterval(i);},150);
-  setTimeout(function(){clearInterval(i);},15000);
+  function run(){
+    // Replace description: find all matching leaf paragraphs, first gets desc, rest cleared
+    if(!doneDesc){
+      var hits=[],els=document.querySelectorAll('p,h5,h4,h3,h2');
+      for(var i=0;i<els.length;i++){
+        var el=els[i];
+        if(el.querySelectorAll('p,h5,h4').length===0&&matchDesc(el.textContent))hits.push(el);
+      }
+      if(hits.length>0){
+        hits[0].textContent=DESC;
+        for(var j=1;j<hits.length;j++){hits[j].textContent='';hits[j].style.display='none';}
+        doneDesc=true;
+      }
+    }
+    // Replace tags
+    var els2=document.querySelectorAll('p,span,div,h6');
+    for(var i=0;i<els2.length;i++){
+      var el=els2[i];
+      if(el.children.length>0)continue;
+      var l=(el.textContent||'').toLowerCase().trim();
+      if(l==='web design'){el.textContent='Python \u00b7 PyTorch';}
+      if(l==='branding'){el.textContent='UMAP \u00b7 KMeans';}
+      if(l==='seo'){el.textContent='LSTM VAE \u00b7 Dash';}
+    }
+    return doneDesc;
+  }
+  var t=setInterval(function(){run();},300);
+  setTimeout(function(){clearInterval(t);},25000);
 })();
 </script>
 </body>
