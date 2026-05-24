@@ -1,1 +1,4 @@
-{"data":"VXNlci1hZ2VudDogKgpBbGxvdzogLwoKU2l0ZW1hcDogaHR0cHM6Ly9kaXN0aW5jdC1yZXBsYWNlbWVudC0wNDY1NzkuZnJhbWVyLmFwcC9zaXRlbWFwLnhtbA=="}
+User-agent: *
+Allow: /
+
+Sitemap: https://distinct-replacement-046579.framer.app/sitemap.xml
