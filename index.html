@@ -595,33 +595,6 @@ section#about::after {
 </style>
 
 <script>
-// Patch "CS undergrad" -> "18 y/o CS undergrad" after Framer hydration rewrites the DOM
-(function () {
-  var TARGET = 'CS undergrad from New Delhi';
-  var PREFIX = '18 y/o ';
-  function patch(root) {
-    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
-    var node;
-    while ((node = walker.nextNode())) {
-      if (node.nodeValue && node.nodeValue.indexOf(TARGET) !== -1 && node.nodeValue.indexOf(PREFIX) === -1) {
-        node.nodeValue = node.nodeValue.replace(TARGET, PREFIX + TARGET);
-      }
-    }
-  }
-  patch(document.body);
-  var observer = new MutationObserver(function (mutations) {
-    mutations.forEach(function (m) {
-      m.addedNodes.forEach(function (n) {
-        if (n.nodeType === Node.ELEMENT_NODE) patch(n);
-        else if (n.nodeType === Node.TEXT_NODE && n.nodeValue && n.nodeValue.indexOf(TARGET) !== -1 && n.nodeValue.indexOf(PREFIX) === -1) {
-          n.nodeValue = n.nodeValue.replace(TARGET, PREFIX + TARGET);
-        }
-      });
-    });
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
-})();
-
 function __scrollToProjects() {
   var sections = document.querySelectorAll('section');
   for (var i = 0; i < sections.length; i++) {
