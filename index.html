@@ -601,25 +601,28 @@ section#about::after {
 @media (max-width: 809px) {
   section#about::after { display: none; }
 }
+h3[data-18yo]::before {
+  content: '18 y/o ';
+  font: inherit;
+  color: inherit;
+}
 </style>
 
 <script>
-// Replace "CS undergrad" with "18 y/o CS undergrad" using innerHTML to handle split spans
+// Prepend "18 y/o " to the CS undergrad h3 via CSS ::before (React-proof)
 (function(){
   function fix(){
-    var els=document.querySelectorAll('h3,p,span,div');
-    for(var i=0;i<els.length;i++){
-      var el=els[i];
-      var t=el.textContent||'';
-      if(t.indexOf('CS undergrad from New Delhi')!==-1&&t.indexOf('18 y/o')===-1){
-        var html=el.innerHTML;
-        var replaced=html.replace('CS undergrad from New Delhi','18 y/o CS undergrad from New Delhi');
-        if(replaced!==html){el.innerHTML=replaced;return;}
+    var h3s=document.querySelectorAll('h3.framer-styles-preset-63buh5');
+    for(var i=0;i<h3s.length;i++){
+      if(h3s[i].textContent.indexOf('CS undergrad from New Delhi')!==-1){
+        h3s[i].setAttribute('data-18yo','1');
+        return true;
       }
     }
+    return false;
   }
-  var t=setInterval(fix,200);
-  setTimeout(function(){clearInterval(t);},25000);
+  var t=setInterval(function(){if(fix())clearInterval(t);},150);
+  setTimeout(function(){clearInterval(t);},20000);
 })();
 
 function __scrollToProjects() {
