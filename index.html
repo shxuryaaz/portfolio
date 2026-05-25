@@ -587,7 +587,7 @@ section#about::after {
 @media (max-width: 809px) {
   section#about::after { display: none; }
 }
-h3[data-18yo]::before {
+[data-18yo]::before {
   content: '18 y/o ';
   font: inherit;
   color: inherit;
@@ -595,17 +595,36 @@ h3[data-18yo]::before {
 </style>
 
 <script>
-// Prepend "18 y/o " to the CS undergrad h3 via CSS ::before (React-proof)
+// Prepend "18 y/o " to the CS undergrad text — tries both text node mutation and CSS ::before
 (function(){
   function fix(){
-    var h3s=document.querySelectorAll('h3');
-    for(var i=0;i<h3s.length;i++){
-      if(h3s[i].textContent.indexOf('CS undergrad from New Delhi')!==-1){
-        h3s[i].setAttribute('data-18yo','1');
+    // Search all elements for the one containing "CS undergrad from New Delhi"
+    var all = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,div,span');
+    var target = null;
+    for(var i=0;i<all.length;i++){
+      var txt = all[i].textContent||'';
+      if(txt.indexOf('CS undergrad from New Delhi')!==-1){
+        // Pick deepest matching element
+        if(!target || target.contains(all[i])) target = all[i];
+      }
+    }
+    if(!target) return false;
+
+    // Mark for CSS ::before fallback
+    target.setAttribute('data-18yo','1');
+
+    // Try direct text node mutation — finds the first non-empty text node and prepends
+    var walker = document.createTreeWalker(target, NodeFilter.SHOW_TEXT, null, false);
+    var node;
+    while((node = walker.nextNode())){
+      if(node.nodeValue && node.nodeValue.trim().length > 0){
+        if(node.nodeValue.indexOf('18 y/o') === -1){
+          node.nodeValue = '18 y/o ' + node.nodeValue;
+        }
         return true;
       }
     }
-    return false;
+    return true;
   }
   var t=setInterval(function(){if(fix())clearInterval(t);},150);
   setTimeout(function(){clearInterval(t);},20000);
