@@ -612,7 +612,7 @@ h3[data-18yo]::before {
 // Prepend "18 y/o " to the CS undergrad h3 via CSS ::before (React-proof)
 (function(){
   function fix(){
-    var h3s=document.querySelectorAll('h3.framer-styles-preset-63buh5');
+    var h3s=document.querySelectorAll('h3');
     for(var i=0;i<h3s.length;i++){
       if(h3s[i].textContent.indexOf('CS undergrad from New Delhi')!==-1){
         h3s[i].setAttribute('data-18yo','1');
