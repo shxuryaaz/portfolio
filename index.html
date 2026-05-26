@@ -595,6 +595,29 @@ section#about::after {
 </style>
 
 <script>
+// Intercept project card clicks and open GitHub repos instead of internal Framer pages
+(function () {
+  var GITHUB_MAP = {
+    'sienna':   'https://github.com/shxuryaaz/medallion-trading-club',
+    'veon':     'https://github.com/shxuryaaz/Blackswan-MarketMap',
+    'zayla':    'https://github.com/shxuryaaz/luna-socratic-ai',
+    'destello': 'https://github.com/shxuryaaz/monarch-main',
+  };
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    for (var slug in GITHUB_MAP) {
+      if (href.indexOf(slug) !== -1) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        window.open(GITHUB_MAP[slug], '_blank');
+        return;
+      }
+    }
+  }, true);
+})();
+
 function __scrollToProjects() {
   var sections = document.querySelectorAll('section');
   for (var i = 0; i < sections.length; i++) {
