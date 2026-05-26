@@ -604,6 +604,13 @@ section#about::after {
     var a = e.target.closest('a[href]');
     if (!a) return;
     var href = a.getAttribute('href') || '';
+    // Redirect BLOGS nav to LinkedIn
+    if (href.indexOf('blog') !== -1 || (a.textContent && a.textContent.trim().toUpperCase() === 'BLOGS')) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      window.open('https://www.linkedin.com/in/shauryasingh28/', '_blank');
+      return;
+    }
     for (var slug in GITHUB_MAP) {
       if (href.indexOf(slug) !== -1) {
         e.preventDefault();
