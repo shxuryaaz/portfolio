@@ -1,1 +1,10 @@
-{"cleanUrls":true,"trailingSlash":false}
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/works", "destination": "/", "permanent": false },
+    { "source": "/works/(.*)", "destination": "/", "permanent": false },
+    { "source": "/blogs", "destination": "/", "permanent": false },
+    { "source": "/blogs/(.*)", "destination": "/", "permanent": false }
+  ]
+}
